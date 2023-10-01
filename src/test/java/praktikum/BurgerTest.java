@@ -3,7 +3,6 @@ package praktikum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -12,6 +11,9 @@ import java.util.Arrays;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+
+import static org.mockito.Mockito.when;
+import static praktikum.IngredientType.FILLING;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BurgerTest {
@@ -61,8 +63,8 @@ public class BurgerTest {
         Burger burger = new Burger();
         burger.setBuns(bun);
         burger.ingredients.add(firstIngredient);
-        Mockito.when(bun.getPrice()).thenReturn(10f);
-        Mockito.when(firstIngredient.getPrice()).thenReturn(20f);
+        when(bun.getPrice()).thenReturn(10f);
+        when(firstIngredient.getPrice()).thenReturn(20f);
         float actual = burger.getPrice();
         assertThat(actual, equalTo(40f));
     }
@@ -71,14 +73,14 @@ public class BurgerTest {
     public void getReceipt() {
         Burger burger = new Burger();
         burger.setBuns(bun);
-        burger.ingredients.add(ingredient);
+        burger.ingredients.add(firstIngredient);
         when(bun.getName()).thenReturn("Сладкая булочка");
         when(bun.getPrice()).thenReturn(100F);
-        when(ingredient.getType()).thenReturn(FILLING);
-        when(ingredient.getName()).thenReturn("Котлета");
-        when(ingredient.getPrice()).thenReturn(500F);
+        when(firstIngredient.getType()).thenReturn(FILLING);
+        when(firstIngredient.getName()).thenReturn("Котлета");
+        when(firstIngredient.getPrice()).thenReturn(500F);
         String expected = String.format("(==== %s ====)%n", bun.getName()) +
-                String.format("= %s %s =%n", ingredient.getType().toString().toLowerCase(), ingredient.getName()) +
+                String.format("= %s %s =%n", firstIngredient.getType().toString().toLowerCase(), firstIngredient.getName()) +
                 String.format("(==== %s ====)%n", bun.getName()) +
                 String.format("%nPrice: %f%n", burger.getPrice());
         assertEquals(expected, burger.getReceipt());
