@@ -64,6 +64,13 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <!-- Указывайте пакет и имя класса, который вы хотите исключить -->
+                                <exclude>praktikum/Database.class</exclude>
+                                <exclude>praktikum/Praktikum.class</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
